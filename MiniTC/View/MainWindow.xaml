@@ -65,7 +65,7 @@
         </Grid>
 
         <Grid Grid.Row="1">
-            <Button x:Name="Kopiuj" Content="Copy" Margin="5" 
+            <Button x:Name="Kopiuj" Content="Copy >>" Margin="5" 
                     HorizontalAlignment="Center" Command="{Binding Kopiuj}"/>
         </Grid>
         

@@ -26,7 +26,7 @@ namespace MiniTC.ViewModel
             get
             {
                 return kopiuj ?? (kopiuj = new RelayCommand(
-                    p => { MessageBox.Show("Kopiowanie"); },
+                    p => { MessageBox.Show("Kopiowanie");},
                     p => true
                     ));
             }
