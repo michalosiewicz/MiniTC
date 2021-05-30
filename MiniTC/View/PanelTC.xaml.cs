@@ -100,6 +100,27 @@ namespace MiniTC.View
             RaiseEvent(newEventArgs);
         }
 
+        public static readonly RoutedEvent ZmianaFocusEvent =
+            EventManager.RegisterRoutedEvent("Focus",
+                    RoutingStrategy.Bubble, typeof(RoutedEventHandler),
+                    typeof(PanelTC));
+
+        public event RoutedEventHandler ZmianaFocus
+        {
+            add { AddHandler(ZmianaFocusEvent, value); }
+            remove { RemoveHandler(ZmianaFocusEvent, value); }
+        }
+
+        void RaiseZmianaFocus()
+        {
+            //argument zdarzenia
+            RoutedEventArgs newEventArgs =
+                    new RoutedEventArgs(PanelTC.ZmianaFocusEvent);
+            //wywołanie zdarzenia
+            RaiseEvent(newEventArgs);
+        }
+
+
         public string Sciezka
         {
             get { return (string)GetValue(SciezkaDP); }
@@ -143,6 +164,11 @@ namespace MiniTC.View
         private void ZawartoscSciezki_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             RaiseZmianaSciezki();
+        }
+
+        private void ZawartoscSciezki_GotFocus(object sender, RoutedEventArgs e)
+        {
+            RaiseZmianaFocus();
         }
     }
 }

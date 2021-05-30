@@ -12,6 +12,7 @@ namespace MiniTC.Model
     {
         public Lokalizacje()
         {
+           
         }
         public string Path { get; set; }
 
@@ -55,20 +56,20 @@ namespace MiniTC.Model
         }
 
         public string ZmianaSciezki(string path,int indeks)
-        {
-            if(FolderyPliki[indeks] == "..")
-            {
-                path = Powrot(path);
-            }
-            else
-            {
-                string x = "";
-                if (Path.Length > 3)
+        { 
+                if (FolderyPliki[indeks] == "..")
                 {
-                    x=@"\";
+                    path = Powrot(path);
                 }
-                path = path +x+ FolderyPliki[indeks].Remove(0, 3);
-            }
+                else
+                {
+                    string x = "";
+                    if (Path.Length > 3)
+                    {
+                        x = @"\";
+                    }
+                    path = path + x + FolderyPliki[indeks].Remove(0, 3);
+                }
             return path;
         }
 
@@ -86,6 +87,24 @@ namespace MiniTC.Model
             if (path.Length < 3)
                 path += @"\";
             return path;
+        }
+
+        public static bool CzyFolder(string nazwa)
+        {
+            if (nazwa == ".." || nazwa.Remove(3) == "<D>")
+                return true;
+            else
+                return false;
+        }
+
+        public string SciezkaDocelowa(string nazwa)
+        {
+            string x = "";
+            if (Path.Length > 3)
+            {
+                x = @"\";
+            }
+            return Path + x + nazwa;
         }
     }
 }

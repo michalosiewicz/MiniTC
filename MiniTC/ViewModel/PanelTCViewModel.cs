@@ -21,14 +21,19 @@ namespace MiniTC.ViewModel
         private List<string> zawartoscSciezki;
         private string dysk;
         private int index = -1;
+        private bool zmianaListBoxa = true;
+        private Kopiowanie kopiowanie;
+        private int numer;
         #endregion
 
         #region Konstruktor
-        public PanelTCViewModel()
+        public PanelTCViewModel(Kopiowanie k,int n)
         {
             Lk = new Lokalizacje();
             napedy = new List<string>();
             zawartoscSciezki = new List<string>();
+            kopiowanie = k;
+            numer = n;
         }
         #endregion
 
@@ -45,6 +50,7 @@ namespace MiniTC.ViewModel
                     MessageBox.Show("Brak dostępu do folderu.","Error");
                     Sciezka = Lk.Powrot(Sciezka);
                 }
+                kopiowanie.Sciezki[numer - 1] = Lk.Path;
             }
         }
 
@@ -58,9 +64,13 @@ namespace MiniTC.ViewModel
         public List<string> ZawartoscSciezki
         {
             get { return zawartoscSciezki; }
-            set { zawartoscSciezki = value;
-                onPropertyChanged(nameof(ZawartoscSciezki));
+            set {
                 Index = -1;
+                zmianaListBoxa = false;
+                zawartoscSciezki = value;
+                onPropertyChanged(nameof(ZawartoscSciezki));
+                zmianaListBoxa = true;
+                kopiowanie.Panel = 0;
             }
         }
 
@@ -112,9 +122,27 @@ namespace MiniTC.ViewModel
             get
             {
                 return zmianaSciezki ?? (zmianaSciezki = new RelayCommand(
-                    p => { Sciezka = Lk.ZmianaSciezki(Sciezka, Index);},
-                    p => Index > -1 && (ZawartoscSciezki[Index] == ".." || ZawartoscSciezki[Index].Remove(3)=="<D>")
+                    p => {
+                            Sciezka = Lk.ZmianaSciezki(Sciezka, Index);
+                    },
+                    p => Index > -1 && Lokalizacje.CzyFolder(ZawartoscSciezki[Index])
                     ));
+            }
+        }
+
+        private ICommand focus;
+        public ICommand Focus
+        {
+
+            get
+            {
+                return focus ?? (focus = new RelayCommand(
+                    p =>
+                    {
+                        kopiowanie.Panel=(Panel.Aktywnosc)numer;
+                    },
+                    p => zmianaListBoxa
+                    )) ;
             }
         }
 

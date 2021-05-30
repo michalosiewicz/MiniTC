@@ -41,6 +41,9 @@
                     <i:EventTrigger EventName="ZmianaSciezki">
                         <i:InvokeCommandAction Command="{Binding Panel1.ZmianaSciezki}"/>
                     </i:EventTrigger>
+                    <i:EventTrigger EventName="ZmianaFocus">
+                        <i:InvokeCommandAction Command="{Binding Panel1.Focus}"/>
+                    </i:EventTrigger>
                 </i:Interaction.Triggers>
             </view:PanelTC>
 
@@ -58,6 +61,9 @@
                     </i:EventTrigger>
                     <i:EventTrigger EventName="ZmianaSciezki">
                         <i:InvokeCommandAction Command="{Binding Panel2.ZmianaSciezki}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="ZmianaFocus">
+                        <i:InvokeCommandAction Command="{Binding Panel2.Focus}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </view:PanelTC>

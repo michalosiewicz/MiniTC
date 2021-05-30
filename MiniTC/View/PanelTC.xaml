@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:MiniTC.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -52,6 +53,7 @@
                      RelativeSource={RelativeSource 
                      Mode=FindAncestor,AncestorType={x:Type UserControl}}}"
                  SelectionChanged="ZawartoscSciezki_SelectionChanged"
+                 GotFocus="ZawartoscSciezki_GotFocus"
                  SelectedIndex="{Binding Indeks,Mode=TwoWay,
                      UpdateSourceTrigger=PropertyChanged,
                      RelativeSource={RelativeSource 
