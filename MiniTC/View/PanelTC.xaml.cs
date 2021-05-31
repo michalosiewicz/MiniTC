@@ -25,6 +25,8 @@ namespace MiniTC.View
             InitializeComponent();
         }
 
+        #region Właściowości
+
         public static readonly DependencyProperty SciezkaDP =
             DependencyProperty.Register(nameof(Sciezka), typeof(string), typeof(PanelTC));
 
@@ -39,6 +41,40 @@ namespace MiniTC.View
 
         public static readonly DependencyProperty IndeksDP =
             DependencyProperty.Register(nameof(Indeks), typeof(int), typeof(PanelTC));
+
+        public string Sciezka
+        {
+            get { return (string)GetValue(SciezkaDP); }
+            set { SetValue(SciezkaDP, value); }
+        }
+
+        public List<string> Napedy
+        {
+            get { return (List<string>)GetValue(NapedyDP); }
+            set { SetValue(NapedyDP, value); }
+        }
+
+        public List<string> Zawartosc
+        {
+            get { return (List<string>)GetValue(ZawartoscDP); }
+            set { SetValue(ZawartoscDP, value); }
+        }
+
+        public string DyskText
+        {
+            get { return (string)GetValue(DyskTextDP); }
+            set { SetValue(DyskTextDP, value); }
+        }
+
+        public int Indeks
+        {
+            get { return (int)GetValue(IndeksDP); }
+            set { SetValue(IndeksDP, value); }
+        }
+
+        #endregion
+
+        #region Polecenia
 
         public static readonly RoutedEvent SprawdzenieNapedowEvent =
             EventManager.RegisterRoutedEvent("OpenComboBox",
@@ -120,37 +156,6 @@ namespace MiniTC.View
             RaiseEvent(newEventArgs);
         }
 
-
-        public string Sciezka
-        {
-            get { return (string)GetValue(SciezkaDP); }
-            set { SetValue(SciezkaDP, value); }
-        }
-
-        public List<string> Napedy
-        {
-            get { return (List<string>)GetValue(NapedyDP); }
-            set { SetValue(NapedyDP, value); }
-        }
-
-        public List<string> Zawartosc
-        {
-            get { return (List<string>)GetValue(ZawartoscDP); }
-            set { SetValue(ZawartoscDP, value); }
-        }
-
-        public string DyskText
-        {
-            get { return (string)GetValue(DyskTextDP); }
-            set { SetValue(DyskTextDP, value); }
-        }
-
-        public int Indeks
-        {
-            get { return (int)GetValue(IndeksDP); }
-            set { SetValue(IndeksDP, value); }
-        }
-
         private void Naped_DropDownOpened(object sender, EventArgs e)
         {
             RaiseSprawdzenieNapedow();
@@ -170,5 +175,6 @@ namespace MiniTC.View
         {
             RaiseZmianaFocus();
         }
+        #endregion
     }
 }

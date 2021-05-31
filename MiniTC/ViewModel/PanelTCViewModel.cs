@@ -22,7 +22,7 @@ namespace MiniTC.ViewModel
         private int index = -1;
         private bool zmianaListBoxa = true;
         private Sciezka path;
-        int numer;
+        private int numer;
         private Kopiowanie kopiowanie;
 
         #endregion

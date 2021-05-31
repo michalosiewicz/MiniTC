@@ -9,11 +9,14 @@ namespace MiniTC.Model
 {
     class Sciezka
     {
+        #region Właściwości
         public string Path { get; set; }
         public int WybranyElement { get; set; }
         public string WybranyPlik { get; set; }
         public List<string> FolderyPliki { get; set; }
+        #endregion
 
+        #region Metody
         public List<string> Zawartosc()
         {
             FolderyPliki = new List<string>();
@@ -86,6 +89,7 @@ namespace MiniTC.Model
             WybranyPlik = FolderyPliki[WybranyElement];
             return Path + x + FolderyPliki[WybranyElement];
         }
-        
+        #endregion
+
     }
 }
