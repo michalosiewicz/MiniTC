@@ -18,19 +18,8 @@ namespace MiniTC.ViewModel
         public MainViewModel()
         {
             kopiowanie = new Model.Kopiowanie();
-            Panel1 = new PanelTCViewModel(kopiowanie,1);
-            Panel2 = new PanelTCViewModel(kopiowanie,2);
-        }
-
-        private string aktywnosc;
-        public string Aktywnosc
-        {
-            get { return aktywnosc; }
-
-            set{
-                aktywnosc = value;
-                onPropertyChanged();
-            }
+            Panel1 = new PanelTCViewModel(kopiowanie,kopiowanie.Sciezka1,1);
+            Panel2 = new PanelTCViewModel(kopiowanie,kopiowanie.Sciezka2,2);
         }
 
         private ICommand kopiuj;
@@ -40,12 +29,21 @@ namespace MiniTC.ViewModel
             get
             {
                 return kopiuj ?? (kopiuj = new RelayCommand(
-                    p => { MessageBox.Show(kopiowanie.Panel.ToString());
-                        MessageBox.Show(kopiowanie.Sciezki[0]);
-                        MessageBox.Show(kopiowanie.Sciezki[1]);
-                        //tu trzeba dodac do sciezki wybrany element
+                    p => {
+                        try
+                        {
+                            kopiowanie.Kopiuj();
+                            Panel1.Sciezka = Panel1.Sciezka;
+                            Panel2.Sciezka = Panel2.Sciezka;
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Brak możliowści kopiowania do wybranego folderu.", "Error");
+                            kopiowanie.Panel = 0;
+                        }
+                        
                     },
-                    p => kopiowanie.Panel!=0
+                    p => kopiowanie.CzyMoznaKopiowac()
                     ));
             }
         }

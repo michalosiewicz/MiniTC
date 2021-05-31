@@ -17,11 +17,10 @@
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="6*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="path" Grid.Column="1" VerticalAlignment="Center" Margin="5"/>
-            <TextBox x:Name="PanelSciezka" Grid.Column="2" VerticalAlignment="Center"
+            <TextBlock Text="path" Grid.Column="0" VerticalAlignment="Center" Margin="5"/>
+            <TextBox x:Name="PanelSciezka" Grid.Column="1" VerticalAlignment="Center"
                      Margin="5" Text="{Binding Sciezka,
                      RelativeSource={RelativeSource 
                      Mode=FindAncestor,AncestorType={x:Type UserControl}}}" 

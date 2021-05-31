@@ -14,7 +14,6 @@ namespace MiniTC.ViewModel
     class PanelTCViewModel:ViewModelBase
     {
         #region Składowe prywatne
-        private Lokalizacje Lk;
 
         private string sciezka;
         private List<string> napedy;
@@ -22,18 +21,20 @@ namespace MiniTC.ViewModel
         private string dysk;
         private int index = -1;
         private bool zmianaListBoxa = true;
+        private Sciezka path;
+        int numer;
         private Kopiowanie kopiowanie;
-        private int numer;
+
         #endregion
 
         #region Konstruktor
-        public PanelTCViewModel(Kopiowanie k,int n)
+        public PanelTCViewModel(Kopiowanie k,Sciezka s,int nr)
         {
-            Lk = new Lokalizacje();
             napedy = new List<string>();
             zawartoscSciezki = new List<string>();
             kopiowanie = k;
-            numer = n;
+            path = s;
+            numer = nr;
         }
         #endregion
 
@@ -43,14 +44,13 @@ namespace MiniTC.ViewModel
             get { return sciezka; }
             set { sciezka = value;
                 onPropertyChanged(nameof(Sciezka));
-                Lk.NowaSciezka(sciezka);
-                try { ZawartoscSciezki = Lk.Zawartosc(); }
+                path.Path=sciezka;
+                try { ZawartoscSciezki = path.Zawartosc(); }
                 catch
                 {
                     MessageBox.Show("Brak dostępu do folderu.","Error");
-                    Sciezka = Lk.Powrot(Sciezka);
+                    Sciezka = path.Powrot();
                 }
-                kopiowanie.Sciezki[numer - 1] = Lk.Path;
             }
         }
 
@@ -123,9 +123,11 @@ namespace MiniTC.ViewModel
             {
                 return zmianaSciezki ?? (zmianaSciezki = new RelayCommand(
                     p => {
-                            Sciezka = Lk.ZmianaSciezki(Sciezka, Index);
+                            path.WybranyElement = Index;
+                            if(Lokalizacje.CzyFolder(ZawartoscSciezki[Index]))
+                                Sciezka = path.ZmianaSciezki();
                     },
-                    p => Index > -1 && Lokalizacje.CzyFolder(ZawartoscSciezki[Index])
+                    p => Index > -1
                     ));
             }
         }
